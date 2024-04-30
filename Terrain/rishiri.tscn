@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7iet4gx7fcaa"]
+
+[ext_resource type="Shader" path="res://Terrain/Heightmap/rishiri.gdshader" id="1_g5eud"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vgin8"]
+render_priority = 0
+shader = ExtResource("1_g5eud")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e6c8g"]
+size = Vector2(1081, 1081)
+subdivide_width = 1080
+subdivide_depth = 1080
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -535.126, 0, 540.071)
+material_override = SubResource("ShaderMaterial_vgin8")
+mesh = SubResource("PlaneMesh_e6c8g")
