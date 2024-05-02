@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="Flying Game Thing"
+run/main_scene="res://Main/world.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [rendering]
 
@@ -21,11 +27,27 @@ renderer/rendering_method.mobile="gl_compatibility"
 
 [shader_globals]
 
-heightmap={
+rishiri_heightmap={
 "type": "sampler2D",
-"value": "res://Terrain/Heightmap/heightmap.png"
+"value": "res://Terrain/Heightmap/rishiri_heightmap.png"
 }
-amplitude={
+ground_heightmap={
+"type": "sampler2D",
+"value": "res://Terrain/Heightmap/ground_heightmap.png"
+}
+ground_amplitude={
+"type": "float",
+"value": 200.0
+}
+rishiri_amplitude={
 "type": "float",
 "value": 670.0
+}
+radius={
+"type": "sampler2D",
+"value": "res://Terrain/Heightmap/radius.png"
+}
+rishiri_normalmap={
+"type": "sampler2D",
+"value": "res://Terrain/Heightmap/rishiri_normalmap.png"
 }

@@ -1,21 +1,31 @@
 shader_type spatial;
 
 
-global uniform sampler2D heightmap;
-global uniform float amplitude;
+global uniform sampler2D rishiri_heightmap;
+global uniform sampler2D ground_heightmap;
+global uniform sampler2D radius;
+global uniform sampler2D rishiri_normalmap;
+global uniform float rishiri_amplitude;
+global uniform float ground_amplitude;
+
 
 varying vec2 texture_position;
 varying float height;
 
 void vertex() {
 	vec3 world_vertex = VERTEX + MODEL_MATRIX[3].xyz;
-	texture_position = (world_vertex.xz + 0.5) / float(textureSize(heightmap, 0).x);
-	height = texture(heightmap, texture_position).r;
+	texture_position = (world_vertex.xz + 0.5) / float(textureSize(rishiri_heightmap, 0).x);
+	float amplitude = rishiri_amplitude;
+	height = texture(rishiri_heightmap, texture_position).r;
+	if(height < 0.01) {
+		amplitude = ground_amplitude;
+		height = texture(ground_heightmap, texture_position).r * texture(radius, texture_position).r;
+	}
 	VERTEX.y = height * amplitude;
 }
 
 void fragment() {
-	// Called for every pixel the material is visible on.
+	NORMAL_MAP = texture(rishiri_normalmap, texture_position).rgb;
 }
 
 //void light() {

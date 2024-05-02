@@ -11,9 +11,9 @@ size = Vector2(1081, 1081)
 subdivide_width = 1080
 subdivide_depth = 1080
 
-[node name="Node3D" type="Node3D"]
+[node name="Terrain" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -535.126, 0, 540.071)
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -540.5, 2.08165e-12, 540.5)
 material_override = SubResource("ShaderMaterial_vgin8")
 mesh = SubResource("PlaneMesh_e6c8g")
