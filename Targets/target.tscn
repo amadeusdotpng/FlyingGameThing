@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmvs12e5kdl6f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8g6br"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_8gifj"]
+inner_radius = 25.0
+outer_radius = 30.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_31l6g"]
+height = 4.0
+radius = 25.0
+
+[node name="Target" type="Area3D" groups=["Target"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_8g6br")
+mesh = SubResource("TorusMesh_8gifj")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_31l6g")

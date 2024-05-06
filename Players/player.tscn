@@ -1,13 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgmtc02sfhfg7"]
+[gd_scene load_steps=4 format=3 uid="uid://cgmtc02sfhfg7"]
 
-[ext_resource type="PackedScene" uid="uid://chav0j6opxdgv" path="res://Players/scene.gltf" id="1_eo24p"]
 [ext_resource type="Script" path="res://Players/movement.gd" id="1_qy72e"]
+[ext_resource type="PackedScene" uid="uid://yjubu5gg7fe" path="res://Players/x-wing/fighter.tscn" id="2_vo33h"]
 
-[node name="Player" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_chx0u"]
+radius = 1.0
+height = 3.0
+
+[node name="Player" type="Area3D" groups=["Player"]]
 script = ExtResource("1_qy72e")
 
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_eo24p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+[node name="Fighter" parent="." instance=ExtResource("2_vo33h")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 8.74228e-08, 0, 0.588153)
+shape = SubResource("CapsuleShape3D_chx0u")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, -3.07489e-16, 3.46333e-16, 3.46333e-16, 0.992966, -0.118404, -3.07489e-16, 0.118404, 0.992966, 2.08165e-12, 2, 5)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.1, -5)
+fov = 110.0
+near = 0.001
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 399.0
+offset_bottom = 173.0
+text = "Controls:
+S/W - Pitch Up/Down
+A/D - Roll Left/Right
+Left/Right Arrow Keys - Yaw Left/Right
+Up/Down Arrow Keys - Thrust Forward/Backward
+
+Ctrl+H - Toggle on/off the control instructions
+Ctrl+G - Hide all GUI"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

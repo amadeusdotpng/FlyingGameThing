@@ -1,0 +1,11 @@
+Model Information:
+* title:	X-Wing
+* source:	https://sketchfab.com/3d-models/x-wing-41a0813f4ed04559a532a3956c5ae64c
+* author:	Demosk Omicron (https://sketchfab.com/demoskOmicron)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "X-Wing" (https://sketchfab.com/3d-models/x-wing-41a0813f4ed04559a532a3956c5ae64c) by Demosk Omicron (https://sketchfab.com/demoskOmicron) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
