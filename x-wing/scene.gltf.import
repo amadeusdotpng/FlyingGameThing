@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cqafb2ds7tst7"
-path="res://.godot/imported/scene.gltf-988af1fa6ecf63af125db0f43fa215c8.scn"
+path="res://.godot/imported/scene.gltf-f6cfee16333a43116f17bddcec4f36c6.scn"
 
 [deps]
 
-source_file="res://Players/x-wing/scene.gltf"
-dest_files=["res://.godot/imported/scene.gltf-988af1fa6ecf63af125db0f43fa215c8.scn"]
+source_file="res://x-wing/scene.gltf"
+dest_files=["res://.godot/imported/scene.gltf-f6cfee16333a43116f17bddcec4f36c6.scn"]
 
 [params]
 

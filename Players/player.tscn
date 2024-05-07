@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cgmtc02sfhfg7"]
 
 [ext_resource type="Script" path="res://Players/movement.gd" id="1_qy72e"]
-[ext_resource type="PackedScene" uid="uid://yjubu5gg7fe" path="res://Players/x-wing/fighter.tscn" id="2_vo33h"]
+[ext_resource type="PackedScene" uid="uid://yjubu5gg7fe" path="res://x-wing/fighter.tscn" id="2_vo33h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_chx0u"]
 radius = 1.0
