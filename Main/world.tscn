@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmqxk1mfsh7v7"]
+[gd_scene load_steps=8 format=3 uid="uid://cmqxk1mfsh7v7"]
 
-[ext_resource type="Texture2D" uid="uid://c1b2qij8crf06" path="res://Skybox/panorama.png" id="1_3bdmt"]
+[ext_resource type="Script" path="res://Main/world.gd" id="1_2dy55"]
+[ext_resource type="Texture2D" uid="uid://bhmp57qcgf314" path="res://Skybox/panorama.png" id="1_3bdmt"]
 [ext_resource type="PackedScene" uid="uid://cgmtc02sfhfg7" path="res://Players/player.tscn" id="2_7c3dr"]
 [ext_resource type="PackedScene" uid="uid://dqo06vg5grcd5" path="res://Track/track.tscn" id="3_34ucc"]
 
@@ -15,6 +16,7 @@ background_mode = 2
 sky = SubResource("Sky_i1qg6")
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_2dy55")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hl1vs")
@@ -26,3 +28,26 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 transform = Transform3D(0.989559, 0.0143569, -0.14341, 0.0584458, -0.949514, 0.308231, -0.131745, -0.313395, -0.94044, -1741.49, 3892.07, -8626.87)
 
 [node name="Track" parent="." instance=ExtResource("3_34ucc")]
+
+[node name="update_timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="set_timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="player_updater" type="HTTPRequest" parent="."]
+use_threads = true
+
+[node name="player_connect" type="HTTPRequest" parent="."]
+use_threads = true
+
+[node name="player_set" type="HTTPRequest" parent="."]
+use_threads = true
+
+[node name="player_restart" type="HTTPRequest" parent="."]
+use_threads = true
+
+[connection signal="timeout" from="update_timer" to="." method="request_data"]
+[connection signal="timeout" from="set_timer" to="." method="set_self"]
+[connection signal="request_completed" from="player_updater" to="." method="_update_players"]
+[connection signal="request_completed" from="player_connect" to="." method="_player_connect"]
