@@ -53,29 +53,33 @@ func _update_players(result, response_code, headers, body):
 	if not data:
 		print("NOT DATA")
 		return
-	
+		
 	for uuid in data:
 		var instance
+		var instance_data = data[uuid]
 		if my_uuid == uuid:
-			print($Player.position, " : ", data[uuid]["pos"])
 			continue
-		elif others.has(uuid):
-			instance = others[uuid]
-		else:
+		elif not others.has(uuid):
 			instance = other.instantiate()
-			others[uuid] = instance
+			others[uuid]['instance'] = instance
+			others[uuid]['last_update'] = instance_data['timestamp']
+
 			add_child(instance)
 			
-		update_instance(data[uuid], instance)
+		update_instance(data[uuid], uuid)
 
-func update_instance(instance_data, instance):
-	var pos = _dict_to_vector(instance_data["pos"])
-	var vel = _dict_to_vector(instance_data["vel"])
-	var acc = _dict_to_vector(instance_data["acc"])
+func update_instance(instance_data, uuid):
+	var rot = _dict_to_vector(instance_data["rot"])
+	others[uuid].rotation_degrees = rot
 	
-	instance.position = pos
-	instance.velocity = vel
-	instance.acceleration = acc
+	var pos = instance_data['pos']
+	var duration = instance_data['timestamp'] - others[uuid]['last_update']
+	if duration == 0:
+		return
+		
+	others[uuid].add_data(pos, duration)
+	others[uuid].update()
+	others[uuid]['last_update'] = instance_data['timestamp']
 
 func set_self():
 	var timestamp = Time.get_unix_time_from_system()
@@ -83,9 +87,8 @@ func set_self():
 	var json = JSON.stringify({
 		'timestamp': timestamp,
 		'uuid': my_uuid,
+		'rot': _vector_to_dict($Player.rotation_degrees),
 		'pos': _vector_to_dict($Player.position),
-		'vel': _vector_to_dict($Player.velocity),
-		'acc': _vector_to_dict($Player.acceleration),
 	})
 	var headers = ["Content-Type: application/json"]
 	$player_set.request(URL+"set_data", headers, HTTPClient.METHOD_POST, json)
