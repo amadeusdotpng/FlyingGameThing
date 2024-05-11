@@ -61,6 +61,10 @@ func _update_players(result, response_code, headers, body):
 			continue
 		elif not others.has(uuid):
 			instance = other.instantiate()
+			instance.position = _dict_to_vector(instance_data['pos'])
+			instance.rotation_degrees = _dict_to_vector(instance_data["rot"])
+			
+			others[uuid] = {}
 			others[uuid]['instance'] = instance
 			others[uuid]['last_update'] = instance_data['timestamp']
 
@@ -68,20 +72,19 @@ func _update_players(result, response_code, headers, body):
 			
 		update_instance(data[uuid], uuid)
 
-func update_instance(instance_data, uuid):
-	var rot = _dict_to_vector(instance_data["rot"])
-	others[uuid].rotation_degrees = rot
-	
-	var pos = instance_data['pos']
+func update_instance(instance_data, uuid):	
+	var pos = _dict_to_vector(instance_data['pos'])
 	var duration = instance_data['timestamp'] - others[uuid]['last_update']
+	print(duration)
 	if duration == 0:
 		return
 		
-	others[uuid].add_data(pos, duration)
-	others[uuid].update()
+	others[uuid]['instance'].add_data(pos, duration)
+	others[uuid]['instance'].update()
 	others[uuid]['last_update'] = instance_data['timestamp']
 
 func set_self():
+	#print('setting')
 	var timestamp = Time.get_unix_time_from_system()
 	
 	var json = JSON.stringify({
