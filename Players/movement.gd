@@ -1,6 +1,5 @@
 extends Area3D
 const DRAG: float = 0.9825
-const SPEED_BOOST: float = 120
 
 @onready var velocity: Vector3 = Vector3.ZERO
 @onready var acceleration: Vector3 = Vector3.ZERO
@@ -41,13 +40,10 @@ func rotate_yaw(rad: float):
 
 func set_velocity(v: Vector3):
 	velocity = v
-	
 func restart():
 	position = Vector3.ZERO
 	rotation = Vector3.ZERO
 	velocity = Vector3.ZERO
 	acceleration = Vector3.ZERO
 		
-func _on_area_entered(area):
-	if area.is_in_group("Target"):
-		velocity += get_global_transform().basis.z * SPEED_BOOST
+		

@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dltkwcix60430"]
 
-[ext_resource type="Script" path="res://Players/other.gd" id="1_rbnqg"]
+[ext_resource type="Script" path="res://Players/movement.gd" id="1_klbml"]
 [ext_resource type="PackedScene" uid="uid://yjubu5gg7fe" path="res://x-wing/fighter.tscn" id="2_u06mc"]
 
 [node name="other" type="Area3D" groups=["Player"]]
-script = ExtResource("1_rbnqg")
+script = ExtResource("1_klbml")
 
 [node name="Fighter" parent="." instance=ExtResource("2_u06mc")]
