@@ -1,12 +1,17 @@
 extends Area3D
 const DRAG: float = 0.9825
+const SPEED_BOOST: float = 120
+const DISCONNECT_THRESH: int = 7
 
 @onready var velocity: Vector3 = Vector3.ZERO
 @onready var acceleration: Vector3 = Vector3.ZERO
+@onready var last_updated: float = 0
+@onready var disconnected: int = 0
 
 func _physics_process(delta):
-	update_velocity(delta)
-	update_position(delta)
+	if disconnected <= DISCONNECT_THRESH:
+		update_velocity(delta)
+		update_position(delta)
 	
 func update_position(delta):
 	position += velocity * delta
@@ -37,13 +42,14 @@ func rotate_yaw(rad: float):
 		$Fighter.rotation.y = move_toward($Fighter.rotation.y, 45*rad, 0.1)
 	else:
 		$Fighter.rotation.y = move_toward($Fighter.rotation.y, 0, 0.1)
-
-func set_velocity(v: Vector3):
-	velocity = v
+func _on_area_entered(area):
+	if area.is_in_group("Target"):
+		velocity += get_global_transform().basis.z * SPEED_BOOST
+	
 func restart():
 	position = Vector3.ZERO
 	rotation = Vector3.ZERO
 	velocity = Vector3.ZERO
 	acceleration = Vector3.ZERO
 		
-		
+

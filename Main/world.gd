@@ -57,7 +57,6 @@ func _update_players(result, response_code, headers, body):
 	for uuid in data:
 		var instance
 		if my_uuid == uuid:
-			print($Player.position, " : ", data[uuid]["pos"])
 			continue
 		elif others.has(uuid):
 			instance = others[uuid]
@@ -69,20 +68,30 @@ func _update_players(result, response_code, headers, body):
 		update_instance(data[uuid], instance)
 
 func update_instance(instance_data, instance):
+	var rot = _dict_to_vector(instance_data["rot"])
 	var pos = _dict_to_vector(instance_data["pos"])
 	var vel = _dict_to_vector(instance_data["vel"])
 	var acc = _dict_to_vector(instance_data["acc"])
+	var last_updated = instance_data["timestamp"]
 	
+	instance.rotation_degrees = rot
 	instance.position = pos
 	instance.velocity = vel
 	instance.acceleration = acc
-
+	
+	if instance.last_updated == last_updated:
+		instance.disconnected += 1
+	else:
+		instance.disconnected = 0
+		instance.last_updated = last_updated
+		
 func set_self():
 	var timestamp = Time.get_unix_time_from_system()
 	
 	var json = JSON.stringify({
 		'timestamp': timestamp,
 		'uuid': my_uuid,
+		'rot': _vector_to_dict($Player.rotation_degrees),
 		'pos': _vector_to_dict($Player.position),
 		'vel': _vector_to_dict($Player.velocity),
 		'acc': _vector_to_dict($Player.acceleration),
