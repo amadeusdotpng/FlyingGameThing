@@ -10,7 +10,7 @@ const ROLL_SPEED: float = 0.045
 const PITCH_SPEED: float = 0.0275
 const YAW_SPEED: float = 0.0035
 
-@export var IDLE_SPEED: float = 10
+@export var IDLE_SPEED: float = 0
 @export var FWD_SPEED: float = 120
 @export var BCK_SPEED: float = -25
 var SPEED: Array[float] = [BCK_SPEED, IDLE_SPEED, FWD_SPEED]
@@ -20,11 +20,21 @@ var accel_input: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$player_connect.request(URL+"connect")
-	
-	
+
 func _physics_process(delta):
 	handle_movement()
-
+	
+	update_gui()
+	
+func update_gui():
+	if Input.is_action_just_pressed("toggle_instructions"):
+		$CanvasLayer/Controls.visible = not $CanvasLayer/Controls.visible
+		
+	if Input.is_action_just_pressed("toggle_speed"):
+		$CanvasLayer/Speed.visible = not $CanvasLayer/Speed.visible
+		
+	$CanvasLayer/Speed.text = str(round($Player.velocity.length()*100)/100) + " m/s"
+	
 func handle_movement():
 	$Player.rotate_pitch(PITCH_SPEED * Input.get_axis("pitch_down", "pitch_up"))
 	$Player.rotate_yaw(YAW_SPEED * Input.get_axis("yaw_right", "yaw_left"))
@@ -42,6 +52,7 @@ func _player_connect(result, response_code, headers, body):
 		print("not data")
 		return
 	my_uuid = data["uuid"]
+	$Player.get_node("username").text = data["username"]
 	$update_timer.start()
 	$set_timer.start()
 
@@ -56,16 +67,18 @@ func _update_players(result, response_code, headers, body):
 	
 	for uuid in data:
 		var instance
+		var instance_data = data[uuid]
 		if my_uuid == uuid:
 			continue
 		elif others.has(uuid):
 			instance = others[uuid]
 		else:
 			instance = other.instantiate()
+			instance.get_node("username").text = instance_data["username"]
 			others[uuid] = instance
 			add_child(instance)
 			
-		update_instance(data[uuid], instance)
+		update_instance(instance_data, instance)
 		
 	var disconnected_players = []
 	for uuid in others:
@@ -87,6 +100,7 @@ func update_instance(instance_data, instance):
 	instance.position = pos
 	instance.velocity = vel
 	instance.acceleration = acc
+	#instance.get_node("username").look_at($Player/Camera3D.position)
 	
 	if instance.last_updated == last_updated:
 		instance.disconnected += 1

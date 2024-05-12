@@ -21,6 +21,28 @@ script = ExtResource("1_2dy55")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hl1vs")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Controls" type="Label" parent="CanvasLayer"]
+offset_right = 399.0
+offset_bottom = 173.0
+text = "Controls:
+S/W - Pitch Up/Down
+A/D - Roll Left/Right
+Left/Right Arrow Keys - Yaw Left/Right
+Up/Down Arrow Keys - Thrust Forward/Backward
+
+Ctrl+H - Toggle control instructions
+Ctrl+G - Toggle Speed GUI"
+
+[node name="Speed" type="Label" parent="CanvasLayer"]
+offset_top = 600.0
+offset_right = 1152.0
+offset_bottom = 648.0
+text = "0.00 m/s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Player" parent="." instance=ExtResource("2_7c3dr")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 

@@ -11,28 +11,21 @@ height = 3.0
 script = ExtResource("1_qy72e")
 
 [node name="Fighter" parent="." instance=ExtResource("2_vo33h")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 8.74228e-08, 0, 0.588153)
+transform = Transform3D(-5, 7.54979e-07, -3.30012e-14, 0, -2.18557e-07, -5, -7.54979e-07, -5, 2.18557e-07, 8.74228e-08, 0, 0.588153)
 shape = SubResource("CapsuleShape3D_chx0u")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.1, -5)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.1, -25)
 fov = 110.0
 near = 0.001
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_right = 399.0
-offset_bottom = 173.0
-text = "Controls:
-S/W - Pitch Up/Down
-A/D - Roll Left/Right
-Left/Right Arrow Keys - Yaw Left/Right
-Up/Down Arrow Keys - Thrust Forward/Backward
-
-Ctrl+H - Toggle on/off the control instructions
-Ctrl+G - Hide all GUI"
+[node name="username" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+billboard = 1
+font_size = 384
+outline_size = 127
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

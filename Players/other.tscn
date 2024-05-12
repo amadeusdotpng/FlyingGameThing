@@ -7,3 +7,10 @@
 script = ExtResource("1_klbml")
 
 [node name="Fighter" parent="." instance=ExtResource("2_u06mc")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+
+[node name="username" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+billboard = 1
+font_size = 1024
+outline_size = 127
