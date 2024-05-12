@@ -66,7 +66,16 @@ func _update_players(result, response_code, headers, body):
 			add_child(instance)
 			
 		update_instance(data[uuid], instance)
-
+		
+	var disconnected_players = []
+	for uuid in others:
+		if uuid not in data:
+			disconnected_players.push_back(uuid)
+			
+	for uuid in disconnected_players:
+		remove_child(others[uuid])
+		others.erase(uuid)
+		
 func update_instance(instance_data, instance):
 	var rot = _dict_to_vector(instance_data["rot"])
 	var pos = _dict_to_vector(instance_data["pos"])
