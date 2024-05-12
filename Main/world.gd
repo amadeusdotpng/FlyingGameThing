@@ -49,7 +49,7 @@ func handle_movement():
 func _player_connect(result, response_code, headers, body):
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	if not data:
-		print("not data")
+		print("_player_connect no data")
 		return
 	my_uuid = data["uuid"]
 	$Player.get_node("username").text = data["username"]
