@@ -1,19 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmqxk1mfsh7v7"]
+[gd_scene load_steps=7 format=3 uid="uid://cmqxk1mfsh7v7"]
 
 [ext_resource type="Script" path="res://Main/world.gd" id="1_2dy55"]
-[ext_resource type="Texture2D" uid="uid://bhmp57qcgf314" path="res://Skybox/panorama.png" id="1_3bdmt"]
 [ext_resource type="PackedScene" uid="uid://cgmtc02sfhfg7" path="res://Players/player.tscn" id="2_7c3dr"]
+[ext_resource type="Sky" uid="uid://b2i4vjgjmyfsi" path="res://Main/sky.tres" id="2_i3a3i"]
 [ext_resource type="PackedScene" uid="uid://dqo06vg5grcd5" path="res://Track/track.tscn" id="3_34ucc"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_pi1hn"]
-panorama = ExtResource("1_3bdmt")
-
-[sub_resource type="Sky" id="Sky_i1qg6"]
-sky_material = SubResource("PanoramaSkyMaterial_pi1hn")
 
 [sub_resource type="Environment" id="Environment_hl1vs"]
 background_mode = 2
-sky = SubResource("Sky_i1qg6")
+sky = ExtResource("2_i3a3i")
+
+[sub_resource type="LabelSettings" id="LabelSettings_seyk2"]
+font_size = 24
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_2dy55")
@@ -33,13 +30,23 @@ Left/Right Arrow Keys - Yaw Left/Right
 Up/Down Arrow Keys - Thrust Forward/Backward
 
 Ctrl+H - Toggle control instructions
-Ctrl+G - Toggle Speed GUI"
+Ctrl+G - Toggle Speed GUI
+ESC - Get Your Mouse Back!"
 
 [node name="Speed" type="Label" parent="CanvasLayer"]
-offset_top = 600.0
-offset_right = 1152.0
-offset_bottom = 648.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -134.0
+offset_right = 50.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "0.00 m/s"
+label_settings = SubResource("LabelSettings_seyk2")
 horizontal_alignment = 1
 vertical_alignment = 1
 

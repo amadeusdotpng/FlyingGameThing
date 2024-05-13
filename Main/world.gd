@@ -21,19 +21,27 @@ var accel_input: int = 0
 func _ready():
 	$player_connect.request(URL+"connect")
 
+func _input(event):
+	if Input.is_action_just_pressed("toggle_instructions"):
+		$CanvasLayer/Controls.visible = not $CanvasLayer/Controls.visible
+		
+	if Input.is_action_just_pressed("toggle_speed"):
+		$CanvasLayer/Speed.visible = not $CanvasLayer/Speed.visible
+	
+	if Input.is_action_just_pressed("disable_mouse_capture"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
+	if event is InputEventMouseButton:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		
 func _physics_process(delta):
 	handle_movement()
 	
 	update_gui()
 	
 func update_gui():
-	if Input.is_action_just_pressed("toggle_instructions"):
-		$CanvasLayer/Controls.visible = not $CanvasLayer/Controls.visible
-		
-	if Input.is_action_just_pressed("toggle_speed"):
-		$CanvasLayer/Speed.visible = not $CanvasLayer/Speed.visible
-		
 	$CanvasLayer/Speed.text = str(round($Player.velocity.length()*100)/100) + " m/s"
+	# TODO: add time and time left
 	
 func handle_movement():
 	$Player.rotate_pitch(PITCH_SPEED * Input.get_axis("pitch_down", "pitch_up"))
