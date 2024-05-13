@@ -36,7 +36,6 @@ func _input(event):
 		
 func _physics_process(delta):
 	handle_movement()
-	
 	update_gui()
 	
 func update_gui():
@@ -102,7 +101,7 @@ func update_instance(instance_data, instance):
 	var pos = _dict_to_vector(instance_data["pos"])
 	var vel = _dict_to_vector(instance_data["vel"])
 	var acc = _dict_to_vector(instance_data["acc"])
-	var last_updated = instance_data["timestamp"]
+	var last_updated = instance_data["last_updated"]
 	
 	instance.rotation_degrees = rot
 	instance.position = pos
@@ -117,10 +116,10 @@ func update_instance(instance_data, instance):
 		instance.last_updated = last_updated
 		
 func set_self():
-	var timestamp = Time.get_unix_time_from_system()
+	var last_updated = Time.get_unix_time_from_system()
 	
 	var json = JSON.stringify({
-		'timestamp': timestamp,
+		'last_updated': last_updated,
 		'uuid': my_uuid,
 		'rot': _vector_to_dict($Player.rotation_degrees),
 		'pos': _vector_to_dict($Player.position),
