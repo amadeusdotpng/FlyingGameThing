@@ -142,7 +142,7 @@ transform = Transform3D(-0.853428, 0.353508, -0.383005, 0.382683, 0.92388, 1.740
 [node name="target32" parent="Targets" instance=ExtResource("1_6nwu4")]
 transform = Transform3D(-0.853428, 0.353508, -0.383005, 0.382683, 0.92388, 1.74079e-05, 0.353857, -0.146555, -0.923746, 3030.88, 2519.57, 4256.29)
 
-[node name="target33" type="Area3D" parent="Targets" groups=["Target"]]
+[node name="target33" type="Area3D" parent="Targets" groups=["Finish", "Target"]]
 transform = Transform3D(-0.853428, 0.353508, -0.383005, 0.382683, 0.92388, 1.74079e-05, 0.353857, -0.146555, -0.923746, 3527.65, 3817.86, 4050.35)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Targets/target33"]

@@ -66,15 +66,16 @@ func _player_connect(result, response_code, headers, body):
 func request_data():
 	$player_updater.request(URL+"get_data")
 
-func _update_players(result, response_code, headers, body):
-	var data = JSON.parse_string(body.get_string_from_utf8())
-	if not data:
+func _update_state(result, response_code, headers, body):
+	var lobby_data = JSON.parse_string(body.get_string_from_utf8())
+	if not lobby_data:
 		print("NOT DATA")
 		return
-	
-	for uuid in data:
+		
+	var players = lobby_data['players']
+	for uuid in players:
 		var instance
-		var instance_data = data[uuid]
+		var instance_data = players[uuid]
 		if my_uuid == uuid:
 			continue
 		elif others.has(uuid):
@@ -89,7 +90,7 @@ func _update_players(result, response_code, headers, body):
 		
 	var disconnected_players = []
 	for uuid in others:
-		if uuid not in data:
+		if uuid not in players:
 			disconnected_players.push_back(uuid)
 			
 	for uuid in disconnected_players:
@@ -107,7 +108,6 @@ func update_instance(instance_data, instance):
 	instance.position = pos
 	instance.velocity = vel
 	instance.acceleration = acc
-	#instance.get_node("username").look_at($Player/Camera3D.position)
 	
 	if instance.last_updated == last_updated:
 		instance.disconnected += 1
@@ -115,17 +115,19 @@ func update_instance(instance_data, instance):
 		instance.disconnected = 0
 		instance.last_updated = last_updated
 		
-func set_self():
+func set_self(finished: bool):
 	var last_updated = Time.get_unix_time_from_system()
 	
 	var json = JSON.stringify({
 		'last_updated': last_updated,
 		'uuid': my_uuid,
+		'finished': finished,
 		'rot': _vector_to_dict($Player.rotation_degrees),
 		'pos': _vector_to_dict($Player.position),
 		'vel': _vector_to_dict($Player.velocity),
 		'acc': _vector_to_dict($Player.acceleration),
 	})
+	
 	var headers = ["Content-Type: application/json"]
 	$player_set.request(URL+"set_data", headers, HTTPClient.METHOD_POST, json)
 
@@ -134,3 +136,7 @@ func _vector_to_dict(v: Vector3):
 
 func _dict_to_vector(v: Dictionary):
 	return Vector3(v['x'], v['y'], v['z'])
+
+func _on_player_area_entered(area):
+	if area.is_in_group("Finish"):
+		set_self(true)
