@@ -67,7 +67,7 @@ func handle_movement():
 func _player_connect(result, response_code, headers, body):
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	if not data:
-		#print("_player_connect no data")
+		print("_player_connect no data")
 		return
 	my_uuid = data["uuid"]
 	$Player.get_node("username").text = data["username"]
@@ -88,7 +88,7 @@ func _update_state(result, response_code, headers, body):
 	var lobby_data = JSON.parse_string(body.get_string_from_utf8())
 	
 	if not lobby_data:
-		#print("NOT DATA")
+		print("NOT DATA")
 		return
 		
 	var players = lobby_data["players"]
@@ -202,7 +202,7 @@ func set_self(finished: bool):
 		'acc': _vector_to_dict($Player.acceleration),
 	})
 	
-	var headers = ["Content-Type: application/json"]
+	var headers = ["Content-Type: application/json", "Access-Control-Allow-Origin: *"]
 	$player_set.request(URL+"set_data", headers, HTTPClient.METHOD_POST, json)
 
 func _vector_to_dict(v: Vector3):
@@ -216,6 +216,6 @@ func _on_player_area_entered(area):
 		$Player.velocity += $Player.get_global_transform().basis.z * SPEED_BOOST
 		
 	if area.is_in_group("Finish"):
-		var headers = ["Content-Type: application/json"]
+		var headers = ["Content-Type: application/json", "Access-Control-Allow-Origin: *"]
 		var json = JSON.stringify({'finished': true, 'uuid': my_uuid})
 		$win.request(URL+"win", headers, HTTPClient.METHOD_POST, json)

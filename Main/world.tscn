@@ -10,19 +10,15 @@ background_mode = 2
 sky = ExtResource("2_i3a3i")
 
 [sub_resource type="LabelSettings" id="LabelSettings_qhf5r"]
-font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_seyk2"]
-font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_mnch8"]
-font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_lk72n"]
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_ataba"]
-font_size = 32
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_2dy55")
