@@ -1,6 +1,5 @@
 extends Area3D
 const DRAG: float = 0.9825
-const SPEED_BOOST: float = 90
 const DISCONNECT_THRESH: int = 7
 
 @onready var velocity: Vector3 = Vector3.ZERO
@@ -43,10 +42,6 @@ func rotate_yaw(rad: float):
 	else:
 		$Fighter.rotation.y = move_toward($Fighter.rotation.y, 0, 0.1)
 		
-func _on_area_entered(area):
-	if area.is_in_group("Target"):
-		velocity += get_global_transform().basis.z * SPEED_BOOST
-	
 func restart():
 	position = Vector3.ZERO
 	rotation = Vector3.ZERO
